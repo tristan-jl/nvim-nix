@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/tristan/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["lsp_extensions.nvim"] = {
+    loaded = true,
+    path = "/home/tristan/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim",
+    url = "https://github.com/nvim-lua/lsp_extensions.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/tristan/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
