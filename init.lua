@@ -34,6 +34,7 @@ require('packer').startup(function(use)
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
     use { 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } }
+    use 'nvim-lua/lsp_extensions.nvim'
 end)
 
 --Set highlight on search

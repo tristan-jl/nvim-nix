@@ -36,7 +36,7 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-lspconfig.pyright.setup { cmd = { vim.env.HOME .. "/opt/venv/bin/pyright-langserver", "--stdio" }, on_attach = on_attach,
+lspconfig.pyright.setup { cmd = { vim.env.HOME .. "/opt/venv/bin/pylsp" }, on_attach = on_attach,
     capabilities = capabilities }
 lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities, settings = {
     ["rust-analyzer"] = {
@@ -45,15 +45,24 @@ lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabiliti
             importPrefix = "self",
         },
         cargo = {
-            loadOutDirsFromCheck = true
+            loadOutDirsFromCheck = true,
+            features = "all"
         },
         procMacro = {
             enable = true },
         checkOnSave = {
             command = "clippy"
-        }
+        },
     }
 } }
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
+    group = vim.api.nvim_create_augroup('tristan-jl', {}),
+    pattern = "*.rs",
+    callback = function()
+        require("lsp_extensions").inlay_hints {}
+    end
+})
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
