@@ -57,7 +57,7 @@ lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabiliti
 } }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
-    group = vim.api.nvim_create_augroup('tristan-jl', {}),
+    group = vim.api.nvim_create_augroup('tristan-jl', {clear=true}),
     pattern = "*.rs",
     callback = function()
         require("lsp_extensions").inlay_hints {}
