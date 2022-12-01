@@ -13,7 +13,7 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { "nvim-telescope/telescope-file-browser.nvim" }
-    use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+    use { "catppuccin/nvim", as = "catppuccin" }
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -35,6 +35,14 @@ require('packer').startup(function(use)
     use 'onsails/lspkind-nvim'
     use { 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } }
     use 'nvim-lua/lsp_extensions.nvim'
+
+    use({
+        'andrewferrier/wrapping.nvim', config = function()
+            require("wrapping").setup()
+        end,
+    })
+
+    use 'ellisonleao/glow.nvim'
 end)
 
 --Set highlight on search
@@ -115,6 +123,7 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 
 require('colour_scheme_config')
 require('lsp_config')
+require('markdown')
 require('metals_config')
 require('nvim_cmp_config')
 require('statusline_config')
