@@ -123,7 +123,6 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 
 require('colour_scheme_config')
 require('lsp_config')
-require('markdown')
 require('metals_config')
 require('nvim_cmp_config')
 require('statusline_config')

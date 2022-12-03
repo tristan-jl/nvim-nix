@@ -25,7 +25,7 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Enable the following language servers
 local servers = { 'clangd', 'tsserver' }
@@ -57,7 +57,7 @@ lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabiliti
 } }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
-    group = vim.api.nvim_create_augroup('tristan-jl', {clear=true}),
+    group = vim.api.nvim_create_augroup('tristan-jl', { clear = true }),
     pattern = "*.rs",
     callback = function()
         require("lsp_extensions").inlay_hints {}
