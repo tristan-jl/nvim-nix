@@ -102,12 +102,8 @@ vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true,
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Highlight on yank
-vim.cmd [[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]]
+local yankGroup = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", { command = "silent! lua vim.highlight.on_yank()", group = yankGroup })
 
 --Map blankline
 vim.g.indent_blankline_char = '┊'
@@ -120,6 +116,13 @@ vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
+
+-- Text file type formatting
+local fileTypeGroup = vim.api.nvim_create_augroup("FileTypeDetect", { clear = true })
+for _, pattern in ipairs({ "gitcommit", "tex", "text", "markdown" }) do
+    vim.api.nvim_create_autocmd("Filetype",
+        { pattern = pattern, command = "setlocal spell tw=80 colorcolumn=81", group = fileTypeGroup })
+end
 
 require('colour_scheme_config')
 require('lsp_config')
