@@ -35,6 +35,10 @@ require('packer').startup(function(use)
     use 'onsails/lspkind-nvim'
     use { 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } }
     use 'nvim-lua/lsp_extensions.nvim'
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     use({
         'andrewferrier/wrapping.nvim', config = function()
