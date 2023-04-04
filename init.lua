@@ -12,7 +12,8 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use { "nvim-telescope/telescope-file-browser.nvim" }
+    use { "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", 'kyazdani42/nvim-web-devicons' } }
     use { "catppuccin/nvim", as = "catppuccin" }
     use {
         'nvim-lualine/lualine.nvim',
@@ -33,6 +34,7 @@ require('packer').startup(function(use)
     use 'saadparwaiz1/cmp_luasnip'
     use 'L3MON4D3/LuaSnip'
     use 'onsails/lspkind-nvim'
+    use 'simrat39/rust-tools.nvim'
     use { 'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" } }
     use 'nvim-lua/lsp_extensions.nvim'
     use {

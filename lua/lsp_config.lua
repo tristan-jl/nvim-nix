@@ -38,31 +38,38 @@ end
 
 lspconfig.pyright.setup { cmd = { vim.env.HOME .. "/opt/venv/bin/pylsp" }, on_attach = on_attach,
     capabilities = capabilities }
-lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities, settings = {
-    ["rust-analyzer"] = {
-        assist = {
-            importGranularity = "module",
-            importPrefix = "self",
-        },
-        cargo = {
-            loadOutDirsFromCheck = true,
-            features = "all"
-        },
-        procMacro = {
-            enable = true },
-        checkOnSave = {
-            command = "clippy"
-        },
-    }
-} }
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
-    group = vim.api.nvim_create_augroup('tristan-jl', { clear = true }),
-    pattern = "*.rs",
-    callback = function()
-        require("lsp_extensions").inlay_hints {}
-    end
+require('rust-tools').setup({
+    server = {
+        on_attach = on_attach, capabilities = capabilities, server =
+        {
+            ["rust-analyzer"] = {
+                assist = {
+                    importGranularity = "module",
+                    importPrefix = "self",
+                },
+                cargo = {
+                    loadOutDirsFromCheck = true,
+                    features = "all"
+                },
+                procMacro = {
+                    enable = true
+                },
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        }
+    }
 })
+
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
+--     group = vim.api.nvim_create_augroup('tristan-jl', { clear = true }),
+--     pattern = "*.rs",
+--     callback = function()
+--         require("lsp_extensions").inlay_hints {}
+--     end
+-- })
 
 lspconfig.gopls.setup {
     cmd = { "gopls", "serve" },
@@ -101,7 +108,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
