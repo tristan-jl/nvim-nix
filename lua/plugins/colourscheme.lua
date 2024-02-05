@@ -6,7 +6,7 @@ return {
     lazy = false,
     config = function()
       require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        flavour = "macchiato", -- latte, frappe, macchiato, mocha
         integrations = {
           cmp = true,
           gitsigns = true,

@@ -17,6 +17,10 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
+-- Enable auto indenting
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 4
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -32,7 +36,9 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 
 -- Set colorscheme
+vim.cmd.colorscheme("catppuccin-macchiato")
 vim.o.termguicolors = true
+vim.opt.cursorline = true
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noinsert,noselect"
@@ -45,3 +51,7 @@ for _, pattern in ipairs({ "gitcommit", "tex", "text", "markdown" }) do
     { pattern = pattern, command = "setlocal spell tw=80 colorcolumn=81", group = fileTypeGroup }
   )
 end
+vim.api.nvim_create_autocmd(
+  "Filetype",
+  { pattern = "python", command = "setlocal colorcolumn=89", group = fileTypeGroup }
+)
