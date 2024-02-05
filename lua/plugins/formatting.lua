@@ -17,7 +17,7 @@ return {
         lua = { "stylua" },
         markdown = { "prettier" },
         python = { "reorder-python-imports", "black" },
-        rust = { "rustfmt" },
+        rust = { "cargo fmt" },
         svelte = { "prettier" },
         typescript = { "prettier" },
         typescriptreact = { "prettier" },

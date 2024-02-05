@@ -7,6 +7,7 @@ return {
   },
   config = function()
     --LSP settings
+    require("neodev").setup({})
     local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     -- local rust_tools = require("rust-tools")
@@ -185,6 +186,7 @@ return {
           telemetry = {
             enable = false,
           },
+          settings = { callSnippet = "Replace" },
         },
       },
     })
