@@ -121,5 +121,12 @@ return {
         ghost_text = false,
       },
     })
+
+    cmp.setup.filetype({ "sql" }, {
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
+      },
+    })
   end,
 }
