@@ -46,7 +46,7 @@ return {
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- Enable the following language servers
-    local servers = { "clangd", "gopls", "tailwindcss" }
+    local servers = { "ansiblels", "clangd", "gopls", "tailwindcss" }
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup({
         on_attach = on_attach,
