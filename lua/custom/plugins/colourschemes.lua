@@ -1,11 +1,13 @@
 return {
+  "folke/tokyonight.nvim",
+  "craftzdog/solarized-osaka.nvim",
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000,
     lazy = false,
+    priority = 1000,
     config = function()
-      require("catppuccin").setup({
+      require("catppuccin").setup {
         flavour = "macchiato", -- latte, frappe, macchiato, mocha
         integrations = {
           cmp = true,
@@ -34,7 +36,9 @@ return {
           telescope = { enable = true },
           treesitter = true,
         },
-      })
+      }
+
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 }
