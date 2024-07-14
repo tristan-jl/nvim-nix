@@ -1,9 +1,23 @@
 return {
-  "folke/tokyonight.nvim",
-  "craftzdog/solarized-osaka.nvim",
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      require("tokyonight").setup {
+        style = "moon",
+        transparent = false,
+      }
+
+      vim.cmd.colorscheme "tokyonight"
+    end,
+  },
+  { "craftzdog/solarized-osaka.nvim", enabled = false },
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -37,8 +51,6 @@ return {
           treesitter = true,
         },
       }
-
-      vim.cmd.colorscheme "catppuccin"
     end,
   },
 }
