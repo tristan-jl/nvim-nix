@@ -98,6 +98,7 @@ return {
             },
           },
         },
+        svelte = true,
         tailwindcss = true,
         tsserver = {
           root_dir = lspconfig.util.root_pattern "package.json",
