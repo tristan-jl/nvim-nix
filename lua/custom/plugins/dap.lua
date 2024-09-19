@@ -16,6 +16,27 @@ return {
       require("dap-python").test_runner = "pytest"
       require("nvim-dap-virtual-text").setup()
 
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = "lldb-dap-18",
+          args = { "--port", "${port}" },
+        },
+      }
+      dap.configurations.rust = {
+        {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+        },
+      }
+
       vim.keymap.set("n", "<space>bp", dap.toggle_breakpoint)
       vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
 
