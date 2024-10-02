@@ -1,6 +1,15 @@
 return {
   {
+    "blazkowolf/gruber-darker.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme "gruber-darker"
+    end,
+  },
+  {
     "folke/tokyonight.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {},
