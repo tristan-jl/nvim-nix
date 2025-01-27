@@ -75,6 +75,7 @@ return {
             Lua = {},
           },
         },
+        nixd = true,
         pyright = {
           cmd = { vim.env.HOME .. "/opt/venv/bin/pylsp" },
         },

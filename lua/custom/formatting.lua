@@ -11,6 +11,7 @@ conform.setup {
     json = { "prettier" },
     lua = { "stylua" },
     markdown = { "prettier" },
+    nix = { "nixfmt" },
     python = { "reorder-python-imports", "black" },
     rust = { "cargo fmt" },
     svelte = { "prettier" },
