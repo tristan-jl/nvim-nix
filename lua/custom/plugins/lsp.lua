@@ -44,9 +44,6 @@ return {
             },
           },
         },
-        groovyls = {
-          cmd = { "java", "-jar", "~/opt/groovy-language-server/build/libs/groovy-language-server-all.jar" },
-        },
         jsonls = {
           settings = {
             json = {
