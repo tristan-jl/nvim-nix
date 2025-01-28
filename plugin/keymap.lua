@@ -28,7 +28,3 @@ set("n", "]d", vim.diagnostic.goto_next)
 set("n", "[d", vim.diagnostic.goto_prev)
 set("n", "<leader>e", vim.diagnostic.open_float)
 set("n", "<leader>q", vim.diagnostic.setloclist)
-
--- Save/Quit keymaps
--- set("n", "<leader>w", "<cmd>w<cr>")
--- set("n", "<leader>q", "<cmd>q<cr>")
