@@ -76,9 +76,7 @@ return {
           },
         },
         nixd = true,
-        pyright = {
-          cmd = { vim.env.HOME .. "/opt/venv/bin/pylsp" },
-        },
+        pylsp = true,
         rust_analyzer = {
           server = {
             ["rust-analyzer"] = {
