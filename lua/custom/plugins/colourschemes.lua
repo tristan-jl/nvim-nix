@@ -2,6 +2,7 @@ return {
   {
     "blazkowolf/gruber-darker.nvim",
     lazy = false,
+    enabled = false,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme "gruber-darker"
@@ -9,17 +10,12 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
-      require("tokyonight").setup {
-        style = "moon",
-        transparent = false,
-      }
-
-      vim.cmd.colorscheme "tokyonight"
+      vim.cmd.colorscheme "tokyonight-night"
     end,
   },
   { "craftzdog/solarized-osaka.nvim", enabled = false },
@@ -60,6 +56,8 @@ return {
           treesitter = true,
         },
       }
+
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 }
