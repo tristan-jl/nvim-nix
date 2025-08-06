@@ -1,14 +1,5 @@
 return {
   {
-    "blazkowolf/gruber-darker.nvim",
-    lazy = false,
-    enabled = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme "gruber-darker"
-    end,
-  },
-  {
     "folke/tokyonight.nvim",
     enabled = true,
     lazy = false,
@@ -16,18 +7,27 @@ return {
     opts = {},
     config = function()
       vim.cmd.colorscheme "tokyonight-night"
+      require "custom.colourscheme_swap"
     end,
   },
-  { "craftzdog/solarized-osaka.nvim", enabled = false },
+  {
+    "blazkowolf/gruber-darker.nvim",
+    lazy = true,
+    enabled = true,
+  },
+  { "craftzdog/solarized-osaka.nvim", enabled = true, lazy = true },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
+    enabled = true,
+    lazy = true,
     config = function()
       require("catppuccin").setup {
         flavour = "macchiato", -- latte, frappe, macchiato, mocha
+        float = {
+          transparent = false,
+          solid = false,
+        },
         integrations = {
           cmp = true,
           gitsigns = true,

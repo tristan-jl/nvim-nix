@@ -13,7 +13,7 @@ conform.setup {
     markdown = { "prettier" },
     nix = { "nixfmt" },
     python = { "reorder-python-imports", "black" },
-    rust = { "cargo fmt" },
+    rust = { "rustfmt", lsp_format = "fallback" },
     svelte = { "prettier" },
     typescript = { "prettier" },
     typescriptreact = { "prettier" },
