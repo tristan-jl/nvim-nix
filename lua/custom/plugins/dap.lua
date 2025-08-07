@@ -20,7 +20,7 @@ return {
         type = "server",
         port = "${port}",
         executable = {
-          command = "lldb-dap-18",
+          command = "lldb-dap",
           args = { "--port", "${port}" },
         },
       }

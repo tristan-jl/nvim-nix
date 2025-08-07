@@ -22,9 +22,3 @@ vim.g.indent_blankline_char = "┊"
 vim.g.indent_blankline_filetype_exclude = { "help" }
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
-
--- Diagnostic keymaps
-set("n", "]d", vim.diagnostic.goto_next)
-set("n", "[d", vim.diagnostic.goto_prev)
-set("n", "<leader>e", vim.diagnostic.open_float)
-set("n", "<leader>q", vim.diagnostic.setloclist)

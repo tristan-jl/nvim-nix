@@ -49,6 +49,3 @@ for _, pattern in ipairs { "gitcommit", "tex", "text", "markdown" } do
     { pattern = pattern, command = "setlocal spell tw=80 colorcolumn=81", group = fileTypeGroup }
   )
 end
-
--- Disable multiline diagnostics
-vim.diagnostic.config { virtual_lines = false }
