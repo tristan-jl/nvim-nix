@@ -11,6 +11,7 @@ return {
       nerd_font_variant = "normal",
     },
     completion = { documentation = { auto_show = false } },
+    signature = { enabled = true },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
