@@ -49,16 +49,15 @@
               nixd
               nodePackages.svelte-language-server
               nodePackages.vscode-json-languageserver
-              python3Packages.python-lsp-server
+              basedpyright
               rust-analyzer
               tailwindcss-language-server
               typescript-language-server
 
               # Formatters
-              black
               nixfmt
               prettier
-              python3Packages.reorder-python-imports
+              ruff
               rustfmt
               stylua
 
@@ -68,7 +67,6 @@
               mypy
               nodePackages.eslint
               proselint
-              python3Packages.flake8
               selene
               shfmt
               statix

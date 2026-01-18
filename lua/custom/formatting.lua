@@ -32,7 +32,7 @@ require("lze").load {
           lua = { "stylua" },
           markdown = { "prettier" },
           nix = { "nixfmt" },
-          python = { "reorder-python-imports", "black" },
+          python = { "ruff_organize_imports", "ruff_format" },
           rust = { "rustfmt", lsp_format = "fallback" },
           sh = { "shfmt" },
           svelte = { "prettier" },

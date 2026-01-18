@@ -17,7 +17,7 @@ require("lze").load {
         lua = { "selene" },
         markdown = { "proselint" },
         nix = { "statix" },
-        python = { "flake8", "mypy" },
+        python = { "mypy" },
         svelte = { "eslint" },
         text = { "proselint" },
         typescript = { "eslint" },

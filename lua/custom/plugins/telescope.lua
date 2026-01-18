@@ -61,6 +61,14 @@ return {
         mode = { "n" },
         desc = "Grep string",
       },
+      {
+        "<space>gs",
+        function()
+          return require("telescope.builtin").git_status()
+        end,
+        mode = { "n" },
+        desc = "Git status",
+      },
     },
     load = function(name)
       vim.cmd.packadd(name)

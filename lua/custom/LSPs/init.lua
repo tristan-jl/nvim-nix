@@ -292,30 +292,45 @@ require("lze").load {
     end,
   },
   {
-    "pylsp",
+    "basedpyright",
     for_cat = "full",
     lsp = {
       filetypes = { "python" },
-      cmd = { "pylsp" },
-      root_markers = { ".git", "Pipfile", "pyproject.toml", "requirements.txt", "setup.cfg" },
+      cmd = { "basedpyright-langserver", "--stdio" },
+      root_markers = { "pyproject.toml", "pyrightconfig.json", ".git" },
       settings = {
-        pylsp = {
-          configurationSources = { "flake8" },
-          plugins = {
-            autopep8 = { enabled = false },
-            flake8 = { enabled = true },
-            jedi_completion = { include_params = true },
-            pycodestyle = { enabled = false },
-            rope_autoimport = {
-              enabled = true,
-              memory = false,
-              completions = { enabled = true },
-              code_actions = { enabled = true },
+        basedpyright = {
+          -- Disable import organization (ruff handles this)
+          disableOrganizeImports = true,
+          analysis = {
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            diagnosticMode = "openFilesOnly",
+            -- Type checking mode: off, basic, standard, strict, all
+            typeCheckingMode = "strict",
+            -- Disable diagnostics that ruff handles
+            diagnosticSeverityOverrides = {
+              reportUnusedImport = "none",
+              reportUnusedVariable = "none",
+              reportUnusedClass = "none",
+              reportUnusedFunction = "none",
             },
-            yapf = { enabled = false },
           },
         },
       },
+    },
+  },
+  {
+    "ruff",
+    for_cat = "full",
+    lsp = {
+      filetypes = { "python" },
+      cmd = { "ruff", "server" },
+      root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
+      on_attach = function(client, _)
+        -- Disable hover in favour of basedpyright
+        client.server_capabilities.hoverProvider = false
+      end,
     },
   },
   {
