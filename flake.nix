@@ -139,6 +139,7 @@
               nvim-lspconfig
 
               # Filetype
+              crates-nvim
               markdown-preview-nvim
               vim-just
             ];

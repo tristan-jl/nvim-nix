@@ -21,9 +21,11 @@ return {
           default = { "lsp", "path", "snippets", "buffer" },
           per_filetype = {
             sql = { "snippets", "dadbod", "buffer" },
+            toml = { "crates", "lsp", "path", "snippets", "buffer" },
           },
           providers = {
             dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+            crates = { name = "crates", module = "crates.completion.cmp" },
           },
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },

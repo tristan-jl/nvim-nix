@@ -78,4 +78,22 @@ return {
       end)
     end,
   },
+  {
+    "nvim-ts-autotag",
+    for_cat = "full",
+    ft = {
+      "html",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "svelte",
+      "vue",
+      "xml",
+      "markdown",
+    },
+    after = function(_)
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 }

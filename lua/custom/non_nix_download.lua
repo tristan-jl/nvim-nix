@@ -62,4 +62,5 @@ require("nixCatsUtils.catPacker").setup {
   -- Filetype
   { "NoahTheDuke/vim-just", opt = true },
   { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", opt = true },
+  { "saecki/crates.nvim", opt = true },
 }
