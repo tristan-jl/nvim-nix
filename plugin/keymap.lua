@@ -2,7 +2,7 @@ local set = vim.keymap.set
 
 -- Remap space as leader key
 set("", "<Space>", "<Nop>")
-set("", "<C-c", "<Esc>")
+set("", "<C-c>", "<Esc>")
 
 -- [[ Highlight on yank ]]
 local yankGroup = vim.api.nvim_create_augroup("YankHighlight", { clear = true })

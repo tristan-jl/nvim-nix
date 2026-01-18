@@ -33,6 +33,7 @@ require("nixCatsUtils.catPacker").setup {
   { "echasnovski/mini.ai", opt = true },
   { "tpope/vim-commentary", opt = true },
   { "christoomey/vim-tmux-navigator", opt = true },
+  { "kylechui/nvim-surround", opt = true },
 
   -- Database
   { "tpope/vim-dadbod", opt = true },
@@ -56,7 +57,9 @@ require("nixCatsUtils.catPacker").setup {
   { "theHamsta/nvim-dap-virtual-text", opt = true },
   { "nvim-neotest/nvim-nio", opt = true },
   { "mfussenegger/nvim-dap-python", opt = true },
+  { "leoluz/nvim-dap-go", opt = true },
 
   -- Filetype
   { "NoahTheDuke/vim-just", opt = true },
+  { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", opt = true },
 }

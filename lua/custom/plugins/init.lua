@@ -111,4 +111,21 @@ require("lze").load {
     event = { "BufReadPre", "BufNewFile" },
     ft = { "\\cjustfile", "*.just", ".justfile" },
   },
+  {
+    "nvim-surround",
+    for_cat = "full",
+    event = "DeferredUIEnter",
+    after = function(_)
+      require("nvim-surround").setup()
+    end,
+  },
+  {
+    "markdown-preview.nvim",
+    for_cat = "full",
+    ft = { "markdown" },
+    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
+    keys = {
+      { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", desc = "Toggle Markdown Preview" },
+    },
+  },
 }

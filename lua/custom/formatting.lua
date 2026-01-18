@@ -21,6 +21,7 @@ require("lze").load {
 
       conform.setup {
         formatters_by_ft = {
+          bash = { "shfmt" },
           css = { "prettier" },
           go = { "goimports", "gofmt" },
           graphql = { "prettier" },
@@ -33,10 +34,12 @@ require("lze").load {
           nix = { "nixfmt" },
           python = { "reorder-python-imports", "black" },
           rust = { "rustfmt", lsp_format = "fallback" },
+          sh = { "shfmt" },
           svelte = { "prettier" },
           typescript = { "prettier" },
           typescriptreact = { "prettier" },
           yaml = { "prettier" },
+          zsh = { "shfmt" },
         },
       }
 

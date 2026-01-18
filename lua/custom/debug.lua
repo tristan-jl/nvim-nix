@@ -125,4 +125,54 @@ require("lze").load {
       require("dap-python").test_runner = "pytest"
     end,
   },
+  {
+    "nvim-dap-go",
+    for_cat = "full",
+    on_plugin = { "nvim-dap" },
+    after = function(_)
+      require("dap-go").setup()
+    end,
+  },
 }
+
+-- Node.js / TypeScript Debugging Setup
+-- ------------------------------------
+-- To debug Node.js or TypeScript applications, you'll need to:
+--
+-- 1. Install the VS Code JavaScript Debug adapter:
+--    - Add `vscode-js-debug` to lspsAndRuntimeDeps in flake.nix
+--    - Or manually download from: https://github.com/microsoft/vscode-js-debug
+--
+-- 2. Add `nvim-dap-vscode-js` plugin to optionalPlugins in flake.nix
+--
+-- 3. Add configuration like:
+--    {
+--      "nvim-dap-vscode-js",
+--      for_cat = "full",
+--      on_plugin = { "nvim-dap" },
+--      after = function(_)
+--        require("dap-vscode-js").setup {
+--          debugger_path = vim.fn.stdpath("data") .. "/vscode-js-debug",
+--          adapters = { "pwa-node", "pwa-chrome" },
+--        }
+--        local dap = require "dap"
+--        for _, lang in ipairs { "javascript", "typescript", "javascriptreact", "typescriptreact" } do
+--          dap.configurations[lang] = {
+--            {
+--              type = "pwa-node",
+--              request = "launch",
+--              name = "Launch file",
+--              program = "${file}",
+--              cwd = "${workspaceFolder}",
+--            },
+--            {
+--              type = "pwa-node",
+--              request = "attach",
+--              name = "Attach",
+--              processId = require("dap.utils").pick_process,
+--              cwd = "${workspaceFolder}",
+--            },
+--          }
+--        end
+--      end,
+--    }

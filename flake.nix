@@ -38,35 +38,43 @@
               ripgrep
               fd
               tree-sitter
+
               # LSP servers
-              lua-language-server
-              nixd
+              clang-tools
+              deno
+              go-tools
               gopls
               gotools
-              go-tools
-              typescript-language-server
-              rust-analyzer
-              python3Packages.python-lsp-server
-              clang-tools
+              lua-language-server
+              nixd
               nodePackages.svelte-language-server
-              tailwindcss-language-server
               nodePackages.vscode-json-languageserver
-              deno
+              python3Packages.python-lsp-server
+              rust-analyzer
+              tailwindcss-language-server
+              typescript-language-server
+
               # Formatters
-              prettier
-              stylua
-              nixfmt
               black
-              rustfmt
+              nixfmt
+              prettier
               python3Packages.reorder-python-imports
+              rustfmt
+              stylua
+
               # Linters
-              golangci-lint
-              nodePackages.eslint
-              python3Packages.flake8
-              mypy
-              proselint
               fish
+              golangci-lint
+              mypy
+              nodePackages.eslint
+              proselint
+              python3Packages.flake8
+              selene
+              shfmt
+              statix
+
               # Debug
+              delve
               lldb
             ];
           };
@@ -75,8 +83,9 @@
             full = with pkgs.vimPlugins; [
               lze
               lzextras
-              plenary-nvim
               nvim-web-devicons
+              plenary-nvim
+
               # Colorscheme
               tokyonight-nvim
             ];
@@ -88,39 +97,51 @@
               nvim-treesitter-textobjects
               nvim-treesitter.withAllGrammars
               nvim-ts-autotag
+
               # Telescope
               telescope-fzf-native-nvim
-              telescope-ui-select-nvim
               telescope-nvim
+              telescope-ui-select-nvim
+
               # Completion
               blink-cmp
               friendly-snippets
+
               # UI
-              lualine-nvim
               gitsigns-nvim
+              lualine-nvim
               oil-nvim
+
               # Editing
               mini-ai
+              nvim-surround
               vim-commentary
               vim-tmux-navigator
+
               # Database
               vim-dadbod
-              vim-dadbod-ui
               vim-dadbod-completion
+              vim-dadbod-ui
+
               # Format and Lint
               conform-nvim
               nvim-lint
+
               # Debug
               nvim-dap
+              nvim-dap-go
+              nvim-dap-python
               nvim-dap-ui
               nvim-dap-virtual-text
               nvim-nio
-              nvim-dap-python
+
               # LSP
-              nvim-lspconfig
               SchemaStore-nvim
               lazydev-nvim
+              nvim-lspconfig
+
               # Filetype
+              markdown-preview-nvim
               vim-just
             ];
           };
