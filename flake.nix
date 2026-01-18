@@ -86,6 +86,8 @@
 
               # Colorscheme
               tokyonight-nvim
+              gruber-darker-nvim
+              solarized-osaka-nvim
             ];
           };
 
@@ -141,6 +143,7 @@
               # Filetype
               crates-nvim
               markdown-preview-nvim
+              otter-nvim
               vim-just
             ];
           };

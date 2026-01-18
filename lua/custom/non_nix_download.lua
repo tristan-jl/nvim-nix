@@ -9,6 +9,8 @@ require("nixCatsUtils.catPacker").setup {
 
   -- Colorscheme
   { "folke/tokyonight.nvim" },
+  { "blazkowolf/gruber-darker.nvim" },
+  { "craftzdog/solarized-osaka.nvim" },
 
   -- Treesitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = true },
@@ -63,4 +65,5 @@ require("nixCatsUtils.catPacker").setup {
   { "NoahTheDuke/vim-just", opt = true },
   { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", opt = true },
   { "saecki/crates.nvim", opt = true },
+  { "jmbuhr/otter.nvim", opt = true },
 }

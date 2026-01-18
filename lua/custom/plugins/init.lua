@@ -142,4 +142,12 @@ require("lze").load {
       }
     end,
   },
+  {
+    "otter.nvim",
+    for_cat = "full",
+    ft = { "markdown", "quarto", "norg" },
+    after = function(_)
+      require("otter").setup()
+    end,
+  },
 }
