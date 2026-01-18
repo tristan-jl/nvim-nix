@@ -1,31 +1,54 @@
-local conform = require "conform"
+require("lze").load {
+  {
+    "conform.nvim",
+    for_cat = "full",
+    event = "BufWritePre",
+    keys = {
+      {
+        "<leader>FF",
+        function()
+          require("conform").format {
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
+          }
+        end,
+        desc = "[F]ormat [F]ile",
+      },
+    },
+    after = function(_)
+      local conform = require "conform"
 
-conform.setup {
-  formatters_by_ft = {
-    css = { "prettier" },
-    go = { "goimports", "gofmt" },
-    graphql = { "prettier" },
-    html = { "prettier" },
-    javascript = { "prettier" },
-    javascriptreact = { "prettier" },
-    json = { "prettier" },
-    lua = { "stylua" },
-    markdown = { "prettier" },
-    nix = { "nixfmt" },
-    python = { "reorder-python-imports", "black" },
-    rust = { "rustfmt", lsp_format = "fallback" },
-    svelte = { "prettier" },
-    typescript = { "prettier" },
-    typescriptreact = { "prettier" },
-    yaml = { "prettier" },
+      conform.setup {
+        formatters_by_ft = {
+          css = { "prettier" },
+          go = { "goimports", "gofmt" },
+          graphql = { "prettier" },
+          html = { "prettier" },
+          javascript = { "prettier" },
+          javascriptreact = { "prettier" },
+          json = { "prettier" },
+          lua = { "stylua" },
+          markdown = { "prettier" },
+          nix = { "nixfmt" },
+          python = { "reorder-python-imports", "black" },
+          rust = { "rustfmt", lsp_format = "fallback" },
+          svelte = { "prettier" },
+          typescript = { "prettier" },
+          typescriptreact = { "prettier" },
+          yaml = { "prettier" },
+        },
+      }
+
+      -- Format on save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function(args)
+          conform.format {
+            bufnr = args.buf,
+            lsp_fallback = true,
+          }
+        end,
+      })
+    end,
   },
 }
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function(args)
-    conform.format {
-      bufnr = args.buf,
-      lsp_fallback = true,
-    }
-  end,
-})

@@ -21,7 +21,6 @@ opt.shiftwidth = 4
 
 -- Enable auto indenting
 opt.smartindent = true
-opt.shiftwidth = 4
 
 -- Enable break indent
 opt.breakindent = true
@@ -41,11 +40,34 @@ opt.signcolumn = "yes"
 opt.termguicolors = true
 opt.cursorline = true
 
+-- Sets how neovim will display certain whitespace characters
+opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- Preview substitutions live
+opt.inccommand = "split"
+
+-- Set completeopt for better completion experience
+opt.completeopt = "menu,preview,noselect"
+
+-- Netrw settings
+vim.g.netrw_liststyle = 0
+vim.g.netrw_banner = 0
+
+-- [[ Disable auto comment on enter ]]
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "remove formatoptions",
+  callback = function()
+    vim.opt.formatoptions:remove { "c", "r", "o" }
+  end,
+})
+
 -- Text file type formatting
 local fileTypeGroup = vim.api.nvim_create_augroup("FileTypeDetect", { clear = true })
 for _, pattern in ipairs { "gitcommit", "tex", "text", "markdown" } do
-  vim.api.nvim_create_autocmd(
-    "Filetype",
-    { pattern = pattern, command = "setlocal spell tw=80 colorcolumn=81", group = fileTypeGroup }
-  )
+  vim.api.nvim_create_autocmd("Filetype", {
+    pattern = pattern,
+    command = "setlocal spell tw=80 colorcolumn=81",
+    group = fileTypeGroup,
+  })
 end

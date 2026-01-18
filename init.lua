@@ -1,23 +1,14 @@
--- Set up lazy.nvim
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system {
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  }
-end
-vim.opt.rtp:prepend(lazypath)
+-- Setup nixCatsUtils for non-nix fallback
+require("nixCatsUtils").setup {
+  non_nix_value = true,
+}
 
--- Set python path
-local python_venv_path = vim.env.HOME .. "/opt/venv"
-if vim.loop.fs_stat(python_venv_path) then
-  vim.g.python3_host_prog = python_venv_path .. "/bin/python"
-end
--- Set leader before plugins
+-- Load plugins when not using nix
+require "custom.non_nix_download"
+
+-- Set leader key before loading plugins
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-require("lazy").setup({ import = "custom/plugins" }, { change_detection = { notify = false } })
+-- Load main configuration
+require "custom"
