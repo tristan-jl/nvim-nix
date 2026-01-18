@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
@@ -138,9 +139,15 @@
             settings = {
               suffix-path = true;
               suffix-LD = true;
+              aliases = [
+                "vi"
+                "vim"
+              ];
               wrapRc = true;
               configDirName = "nix-nvim";
-              aliases = [ "vim" ];
+              neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+              hosts.python3.enable = true;
+              hosts.node.enable = true;
             };
             categories = {
               full = true;
