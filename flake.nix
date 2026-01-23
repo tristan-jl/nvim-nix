@@ -105,6 +105,7 @@
 
               # Completion
               blink-cmp
+              blink-compat
               friendly-snippets
 
               # UI

@@ -1,9 +1,15 @@
 return {
   {
+    "blink.compat",
+    for_cat = "full",
+    lazy = true,
+  },
+  {
     "blink.cmp",
     for_cat = "full",
     event = "DeferredUIEnter",
     load = function(name)
+      vim.cmd.packadd "blink.compat"
       vim.cmd.packadd(name)
       vim.cmd.packadd "friendly-snippets"
     end,
@@ -20,12 +26,13 @@ return {
         sources = {
           default = { "lsp", "path", "snippets", "buffer" },
           per_filetype = {
-            sql = { "snippets", "dadbod", "buffer" },
-            toml = { "crates", "lsp", "path", "snippets", "buffer" },
+            sql = { "dadbod", "snippets", "buffer" },
           },
           providers = {
-            dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-            crates = { name = "crates", module = "crates.completion.cmp" },
+            dadbod = {
+              name = "Dadbod",
+              module = "blink.compat.source",
+            },
           },
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },

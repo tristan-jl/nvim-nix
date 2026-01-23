@@ -134,10 +134,11 @@ require("lze").load {
     event = { "BufRead Cargo.toml" },
     after = function(_)
       require("crates").setup {
-        completion = {
-          crates = {
-            enabled = true,
-          },
+        lsp = {
+          enabled = true,
+          actions = true,
+          completion = true,
+          hover = true,
         },
       }
     end,
