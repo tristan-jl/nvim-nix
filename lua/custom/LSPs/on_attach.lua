@@ -25,7 +25,7 @@ return function(_, bufnr)
   nmap("gT", vim.lsp.buf.type_definition, "Type [D]efinition")
   nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
   nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-  nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+  nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
 
   -- Telescope integration
   nmap("gr", function()

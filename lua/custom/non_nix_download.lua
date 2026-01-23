@@ -66,4 +66,7 @@ require("nixCatsUtils.catPacker").setup {
   { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", opt = true },
   { "saecki/crates.nvim", opt = true },
   { "jmbuhr/otter.nvim", opt = true },
+
+  -- Compilation
+  { "ej-shafran/compile-mode.nvim", opt = true },
 }

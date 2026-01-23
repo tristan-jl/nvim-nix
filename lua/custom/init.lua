@@ -10,4 +10,5 @@ if nixCats "full" then
   require "custom.formatting"
   require "custom.linting"
   require "custom.debug"
+  require "custom.compile"
 end

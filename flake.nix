@@ -5,6 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    compile_mode = {
+      url = "github:ej-shafran/compile-mode.nvim";
+      flake = false;
+    };
   };
 
   outputs =
@@ -150,6 +154,14 @@
               markdown-preview-nvim
               otter-nvim
               vim-just
+
+              # Compilation
+              (pkgs.vimUtils.buildVimPlugin {
+                pname = "compile-mode.nvim";
+                version = "latest";
+                src = inputs.compile_mode;
+                doCheck = false;
+              })
             ];
           };
 
