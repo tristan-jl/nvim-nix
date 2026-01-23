@@ -92,6 +92,10 @@
           };
 
           optionalPlugins = {
+            copilot = with pkgs.vimPlugins; [
+              copilot-lua
+              blink-cmp-copilot
+            ];
             full = with pkgs.vimPlugins; [
               # Treesitter
               nvim-treesitter-textobjects
@@ -195,6 +199,32 @@
               full = false;
             };
             extra = { };
+          };
+        nvim-copilot =
+          { pkgs, ... }@misc:
+          {
+            settings = {
+              suffix-path = true;
+              suffix-LD = true;
+              aliases = [
+                "vi"
+                "vim"
+              ];
+              wrapRc = true;
+              configDirName = "nix-nvim";
+              neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+              hosts.python3.enable = true;
+              hosts.node.enable = true;
+            };
+            categories = {
+              full = true;
+              copilot = true;
+            };
+            extra = {
+              nixdExtras = {
+                nixpkgs = "import ${pkgs.path} {}";
+              };
+            };
           };
       };
 

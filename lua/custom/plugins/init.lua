@@ -4,6 +4,7 @@ require("lze").load {
   { import = "custom.plugins.treesitter" },
   { import = "custom.plugins.completion" },
   { import = "custom.plugins.database" },
+  { import = "custom.plugins.copilot" },
 }
 
 -- Oil file explorer

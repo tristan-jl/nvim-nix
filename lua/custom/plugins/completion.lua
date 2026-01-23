@@ -1,3 +1,28 @@
+local function get_sources()
+  local default = { "lsp", "path", "snippets", "buffer" }
+  if nixCats "copilot" then
+    table.insert(default, 2, "copilot")
+  end
+  return default
+end
+
+local function get_providers()
+  local providers = {
+    dadbod = {
+      name = "Dadbod",
+      module = "blink.compat.source",
+    },
+  }
+  if nixCats "copilot" then
+    providers.copilot = {
+      name = "copilot",
+      module = "blink-cmp-copilot",
+      async = true,
+    }
+  end
+  return providers
+end
+
 return {
   {
     "blink.compat",
@@ -12,6 +37,9 @@ return {
       vim.cmd.packadd "blink.compat"
       vim.cmd.packadd(name)
       vim.cmd.packadd "friendly-snippets"
+      if nixCats "copilot" then
+        vim.cmd.packadd "blink-cmp-copilot"
+      end
     end,
     after = function(_)
       require("blink.cmp").setup {
@@ -24,16 +52,11 @@ return {
         },
         signature = { enabled = true },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer" },
+          default = get_sources(),
           per_filetype = {
             sql = { "dadbod", "snippets", "buffer" },
           },
-          providers = {
-            dadbod = {
-              name = "Dadbod",
-              module = "blink.compat.source",
-            },
-          },
+          providers = get_providers(),
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },
       }
