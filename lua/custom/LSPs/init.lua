@@ -327,7 +327,9 @@ require("lze").load {
       filetypes = { "python" },
       cmd = { "ruff", "server" },
       root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
-      on_attach = function(client, _)
+      on_attach = function(client, bufnr)
+        -- Call the shared on_attach for keybindings
+        require("custom.LSPs.on_attach")(client, bufnr)
         -- Disable hover in favour of basedpyright
         client.server_capabilities.hoverProvider = false
       end,
