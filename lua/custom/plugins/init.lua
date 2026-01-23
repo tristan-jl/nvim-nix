@@ -13,15 +13,30 @@ require("lze").load {
   {
     "oil.nvim",
     for_cat = "full",
-    keys = {
-      { "-", desc = "Open parent directory" },
-      { "<space>-", desc = "Toggle oil float" },
-    },
+    lazy = false,
+    load = function(name)
+      vim.cmd.packadd(name)
+    end,
     after = function(_)
       require("oil").setup {
         default_file_explorer = true,
         columns = { "icon" },
         keymaps = {
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<C-s>"] = "actions.select_vsplit",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = "actions.tcd",
+          ["gs"] = "actions.change_sort",
+          ["gx"] = "actions.open_external",
+          ["g."] = "actions.toggle_hidden",
+          ["g\\"] = "actions.toggle_trash",
+          -- Disable defaults that conflict with window navigation
           ["<C-h>"] = false,
           ["<C-l>"] = false,
           ["<C-k>"] = false,
@@ -32,8 +47,8 @@ require("lze").load {
           show_hidden = true,
         },
       }
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-      vim.keymap.set("n", "<space>-", require("oil").toggle_float)
+      vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open parent directory" })
+      vim.keymap.set("n", "<space>-", require("oil").toggle_float, { desc = "Toggle oil float" })
     end,
   },
 }
