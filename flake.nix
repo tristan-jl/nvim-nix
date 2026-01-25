@@ -44,16 +44,17 @@
               tree-sitter
 
               # LSP servers
+              basedpyright
               clang-tools
               deno
               go-tools
               gopls
               gotools
+              kdePackages.qtdeclarative
               lua-language-server
               nixd
               nodePackages.svelte-language-server
               nodePackages.vscode-json-languageserver
-              basedpyright
               rust-analyzer
               tailwindcss-language-server
               typescript-language-server

@@ -329,7 +329,7 @@ require("lze").load {
       root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
       on_attach = function(client, bufnr)
         -- Call the shared on_attach for keybindings
-        require("custom.LSPs.on_attach")(client, bufnr)
+        require "custom.LSPs.on_attach"(client, bufnr)
         -- Disable hover in favour of basedpyright
         client.server_capabilities.hoverProvider = false
       end,
@@ -405,5 +405,12 @@ require("lze").load {
         })
       end)
     end,
+  },
+  {
+    "qmlls",
+    for_cat = "full",
+    lsp = {
+      filetypes = { "qml" },
+    },
   },
 }
