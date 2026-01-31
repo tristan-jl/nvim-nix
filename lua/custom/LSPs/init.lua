@@ -19,6 +19,18 @@ vim.api.nvim_create_user_command("LspInfo", function()
   vim.cmd "checkhealth vim.lsp"
 end, { desc = "Check LSP health" })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP keymaps",
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+
+    require "custom.LSPs.on_attach"(client, args.buf)
+  end,
+})
+
 -- Set up filetype fallback for lzextras.lsp handler
 local old_ft_fallback = require("lze").h.lsp.get_ft_fallback()
 require("lze").h.lsp.set_ft_fallback(function(name)
@@ -43,11 +55,6 @@ require("lze").load {
     lsp = function(plugin)
       vim.lsp.config(plugin.name, plugin.lsp or {})
       vim.lsp.enable(plugin.name)
-    end,
-    before = function(_)
-      vim.lsp.config("*", {
-        on_attach = require "custom.LSPs.on_attach",
-      })
     end,
   },
   {
@@ -205,47 +212,6 @@ require("lze").load {
     lsp = {
       filetypes = { "rust" },
       cmd = { "rust-analyzer" },
-      root_dir = function(bufnr, cb)
-        -- Async root detection for Cargo workspaces/monorepos
-        local fname = vim.api.nvim_buf_get_name(bufnr)
-        local dir = vim.fs.dirname(fname)
-
-        -- Check if this is a library file (stdlib, registry, etc.)
-        -- These files should reuse an existing client if possible
-        local is_library = fname:match "%.cargo/registry"
-          or fname:match "%.cargo/git"
-          or fname:match "%.rustup/toolchains"
-          or fname:match "/rustlib/src/"
-
-        if is_library then
-          -- For library files, try to find an existing rust-analyzer client
-          local clients = vim.lsp.get_clients { name = "rust_analyzer" }
-          if #clients > 0 then
-            cb(clients[1].root_dir)
-            return
-          end
-        end
-
-        -- Find workspace root asynchronously
-        vim.system(
-          { "cargo", "metadata", "--no-deps", "--format-version", "1" },
-          { cwd = dir, text = true },
-          function(result)
-            vim.schedule(function()
-              if result.code == 0 and result.stdout then
-                local ok, metadata = pcall(vim.json.decode, result.stdout)
-                if ok and metadata and metadata.workspace_root then
-                  cb(metadata.workspace_root)
-                  return
-                end
-              end
-              -- Fallback to finding Cargo.toml
-              local root = vim.fs.root(bufnr, { "Cargo.toml", ".git" })
-              cb(root or dir)
-            end)
-          end
-        )
-      end,
       settings = {
         ["rust-analyzer"] = {
           assist = {
@@ -274,22 +240,6 @@ require("lze").load {
         },
       },
     },
-    after = function(_)
-      -- LspCargoReload command to reload workspace
-      vim.api.nvim_create_user_command("LspCargoReload", function()
-        local clients = vim.lsp.get_clients { name = "rust_analyzer" }
-        for _, client in ipairs(clients) do
-          vim.notify("Reloading Cargo workspace...", vim.log.levels.INFO)
-          client:request("rust-analyzer/reloadWorkspace", nil, function(err)
-            if err then
-              vim.notify("Error reloading workspace: " .. tostring(err), vim.log.levels.ERROR)
-            else
-              vim.notify("Cargo workspace reloaded", vim.log.levels.INFO)
-            end
-          end)
-        end
-      end, { desc = "Reload Cargo workspace" })
-    end,
   },
   {
     "basedpyright",
@@ -328,9 +278,6 @@ require("lze").load {
       cmd = { "ruff", "server" },
       root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
       on_attach = function(client, bufnr)
-        -- Call the shared on_attach for keybindings
-        require "custom.LSPs.on_attach"(client, bufnr)
-        -- Disable hover in favour of basedpyright
         client.server_capabilities.hoverProvider = false
       end,
     },
