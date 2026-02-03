@@ -1,6 +1,6 @@
 local function get_sources()
   local default = { "lsp", "path", "snippets", "buffer" }
-  if nixCats "copilot" then
+  if nixInfo(false, "settings", "cats", "copilot") then
     table.insert(default, 2, "copilot")
   end
   return default
@@ -13,7 +13,7 @@ local function get_providers()
       module = "blink.compat.source",
     },
   }
-  if nixCats "copilot" then
+  if nixInfo(false, "settings", "cats", "copilot") then
     providers.copilot = {
       name = "copilot",
       module = "blink-cmp-copilot",
@@ -37,7 +37,7 @@ return {
       vim.cmd.packadd "blink.compat"
       vim.cmd.packadd(name)
       vim.cmd.packadd "friendly-snippets"
-      if nixCats "copilot" then
+      if nixInfo(false, "settings", "cats", "copilot") then
         vim.cmd.packadd "blink-cmp-copilot"
       end
     end,

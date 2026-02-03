@@ -1,6 +1,6 @@
 # nvim-nix
 
-A Neovim configuration using [nixCats-nvim](https://github.com/BirdeeHub/nixCats-nvim) for Nix-based package management. Supports both Nix-based installation (with all dependencies managed by Nix) and a fallback non-Nix installation using paq-nvim.
+A Neovim configuration using [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules) for Nix-based package management. All dependencies (plugins, LSP servers, formatters, linters) are managed by Nix.
 
 ## Installation
 
@@ -16,41 +16,17 @@ nix run github:tristan/nvim-nix
 }
 ```
 
-### NixOS Module
+### Package Variants
 
-```nix
-{
-  imports = [ nvim-nix.nixosModules.default ];
-
-  nvim = {
-    enable = true;
-    # Optional: override package definitions
-  };
-}
-```
-
-### Home Manager Module
-
-```nix
-{
-  imports = [ nvim-nix.homeModules.default ];
-
-  nvim = {
-    enable = true;
-  };
-}
-```
-
-### Non-Nix Installation
-
-For non-Nix systems, the configuration falls back to [paq-nvim](https://github.com/savq/paq-nvim) for plugin management. Clone the repository and open Neovim - plugins will be installed automatically.
+- `nvim` (default) - Full configuration with all plugins and tools
+- `nvim-minimal` - Minimal configuration without plugins
+- `nvim-copilot` - Full configuration with GitHub Copilot support (binary: `nvim-copilot`, can be installed alongside `nvim`)
 
 ```bash
-git clone https://github.com/tristan/nvim-nix ~/.config/nvim
-nvim
+nix build .#nvim
+nix build .#nvim-minimal
+nix build .#nvim-copilot
 ```
-
-Note: You'll need to manually install LSP servers, formatters, and linters when not using Nix.
 
 ## Development
 

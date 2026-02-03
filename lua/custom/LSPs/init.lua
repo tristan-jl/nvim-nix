@@ -1,5 +1,3 @@
-local catUtils = require "nixCatsUtils"
-
 -- Diagnostic configuration
 vim.diagnostic.config {
   virtual_text = true,
@@ -34,8 +32,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- Set up filetype fallback for lzextras.lsp handler
 local old_ft_fallback = require("lze").h.lsp.get_ft_fallback()
 require("lze").h.lsp.set_ft_fallback(function(name)
-  local lspcfg = nixCats.pawsible { "allPlugins", "opt", "nvim-lspconfig" }
-    or nixCats.pawsible { "allPlugins", "start", "nvim-lspconfig" }
+  local lspcfg = nixInfo.get_nix_plugin_path("nvim-lspconfig")
   if lspcfg then
     local ok, cfg = pcall(dofile, lspcfg .. "/lsp/" .. name .. ".lua")
     if not ok then
@@ -65,7 +62,8 @@ require("lze").load {
     after = function(_)
       require("lazydev").setup {
         library = {
-          { words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
+          { words = { "nixInfo%.lze" }, path = nixInfo("lze", "plugins", "start", "lze") .. "/lua" },
+          { words = { "lzextras" }, path = nixInfo("lzextras", "plugins", "start", "lzextras") .. "/lua" },
         },
       }
     end,
@@ -87,7 +85,7 @@ require("lze").load {
         Lua = {
           hint = { enable = true },
           telemetry = { enable = false },
-          diagnostics = { globals = { "vim", "nixCats" } },
+          diagnostics = { globals = { "vim", "nixInfo" } },
           workspace = { checkThirdParty = false },
         },
       },
@@ -96,7 +94,7 @@ require("lze").load {
   {
     "nixd",
     for_cat = "full",
-    enabled = catUtils.isNixCats,
+    enabled = nixInfo.isNix,
     lsp = {
       filetypes = { "nix" },
       cmd = { "nixd" },
@@ -104,7 +102,7 @@ require("lze").load {
       settings = {
         nixd = {
           nixpkgs = {
-            expr = nixCats.extra "nixdExtras.nixpkgs" or [[import <nixpkgs> {}]],
+            expr = nixInfo(nil, "info", "nixdExtras", "nixpkgs") or [[import <nixpkgs> {}]],
           },
           formatting = {
             command = { "nixfmt" },
