@@ -8,8 +8,6 @@ inputs:
 }:
 
 {
-  imports = [ wlib.wrapperModules.neovim ];
-
   # Expose spec enable states to Lua as settings.cats
   options.settings.cats = lib.mkOption {
     readOnly = true;

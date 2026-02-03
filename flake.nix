@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -16,12 +18,12 @@
     {
       self,
       nixpkgs,
+      flake-parts,
       wrappers,
       ...
     }@inputs:
     let
       inherit (nixpkgs) lib;
-      forAllSystems = lib.genAttrs lib.platforms.all;
 
       # Core module with shared config (no optional specs)
       coreModule = lib.modules.importApply ./module.nix inputs;
@@ -143,36 +145,14 @@
             ];
           };
         };
-
-      # Evaluated wrappers for each variant
-      nvimWrapper = wrappers.lib.evalModule {
-        imports = [
-          coreModule
-          fullSpecModule
-        ];
-      };
-
-      nvimMinimalWrapper = wrappers.lib.evalModule {
-        imports = [ coreModule ];
-        config.settings.aliases = lib.mkForce [ ];
-        config.hosts.python3.nvim-host.enable = lib.mkForce false;
-        config.hosts.node.nvim-host.enable = lib.mkForce false;
-      };
-
-      nvimCopilotWrapper = wrappers.lib.evalModule {
-        imports = [
-          coreModule
-          fullSpecModule
-          copilotSpecModule
-        ];
-        config.binName = "nvim-copilot";
-        config.settings.aliases = lib.mkForce [ ];
-        config.settings.dont_link = true;
-      };
     in
-    {
-      packages = forAllSystems (
-        system:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = lib.platforms.all;
+
+      imports = [ wrappers.flakeModules.wrappers ];
+
+      perSystem =
+        { system, self', ... }:
         let
           pkgs = import nixpkgs {
             inherit system;
@@ -180,31 +160,62 @@
           };
         in
         {
-          default = nvimWrapper.config.wrap { inherit pkgs; };
-          nvim = self.packages.${system}.default;
-          nvim-minimal = nvimMinimalWrapper.config.wrap { inherit pkgs; };
-          nvim-copilot = nvimCopilotWrapper.config.wrap { inherit pkgs; };
-        }
-      );
+          wrappers.pkgs = pkgs;
 
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        {
-          default = pkgs.mkShell {
-            name = "nvim";
-            packages = [ self.packages.${system}.default ];
+          packages = {
+            default = self'.packages.nvim;
           };
-        }
-      );
 
-      overlays.default = final: _: {
-        neovim = self.packages.${final.stdenv.hostPlatform.system}.default;
+          devShells.default = pkgs.mkShell {
+            name = "nvim";
+            packages = [ self'.packages.nvim ];
+          };
+        };
+
+      flake = {
+        overlays.default = final: _: {
+          neovim = self.packages.${final.stdenv.hostPlatform.system}.default;
+        };
+
+        wrapperModules.default = coreModule;
+
+        wrappers = {
+          nvim =
+            { wlib, ... }:
+            {
+              imports = [
+                wlib.wrapperModules.neovim
+                coreModule
+                fullSpecModule
+              ];
+            };
+
+          nvim-minimal =
+            { wlib, lib, ... }:
+            {
+              imports = [
+                wlib.wrapperModules.neovim
+                coreModule
+              ];
+              config.settings.aliases = lib.mkForce [ ];
+              config.hosts.python3.nvim-host.enable = lib.mkForce false;
+              config.hosts.node.nvim-host.enable = lib.mkForce false;
+            };
+
+          nvim-copilot =
+            { wlib, lib, ... }:
+            {
+              imports = [
+                wlib.wrapperModules.neovim
+                coreModule
+                fullSpecModule
+                copilotSpecModule
+              ];
+              config.binName = "nvim-copilot";
+              config.settings.aliases = lib.mkForce [ ];
+              config.settings.dont_link = true;
+            };
+        };
       };
-
-      wrapperModules.default = coreModule;
-      wrappers.default = nvimWrapper.config;
     };
 }

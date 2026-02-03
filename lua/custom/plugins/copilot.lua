@@ -2,6 +2,7 @@ return {
   {
     "copilot.lua",
     for_cat = "copilot",
+    cmd = { "Copilot" },
     event = "InsertEnter",
     after = function(_)
       require("copilot").setup {
