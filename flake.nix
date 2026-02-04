@@ -3,11 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    wrappers.url = "github:BirdeeHub/nix-wrapper-modules";
-    wrappers.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     compile_mode = {
       url = "github:ej-shafran/compile-mode.nvim";
       flake = false;
