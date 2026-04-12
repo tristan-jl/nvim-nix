@@ -44,9 +44,11 @@
             after = [ "core" ];
             lazy = true;
             extraPackages = with pkgs; [
-              ripgrep
+              # General
               fd
+              ripgrep
               tree-sitter
+
               # LSP servers
               basedpyright
               clang-tools
@@ -57,26 +59,29 @@
               kdePackages.qtdeclarative
               lua-language-server
               nixd
-              nodePackages.svelte-language-server
-              nodePackages.vscode-json-languageserver
               rust-analyzer
+              svelte-language-server
               tailwindcss-language-server
               typescript-language-server
+              vscode-json-languageserver
+
               # Formatters
               nixfmt
               prettier
               ruff
               rustfmt
               stylua
+
               # Linters
+              eslint
               fish
               golangci-lint
               mypy
-              nodePackages.eslint
               proselint
               selene
               shfmt
               statix
+
               # Debug
               delve
               lldb
