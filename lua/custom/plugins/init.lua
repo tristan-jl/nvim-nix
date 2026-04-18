@@ -63,7 +63,7 @@ require("lze").load {
       require("lualine").setup {
         options = {
           globalstatus = true,
-          theme = "tokyonight",
+          theme = "auto",
           component_separators = "|",
           section_separators = "",
         },

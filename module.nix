@@ -32,7 +32,10 @@ inputs:
       node.nvim-host.enable = true;
     };
 
-    info.nixdExtras.nixpkgs = "import ${pkgs.path} {}";
+    info = {
+      nixdExtras.nixpkgs = "import ${pkgs.path} {}";
+      colorscheme = lib.mkDefault "tokyonight-night";
+    };
 
     # Add extraPackages field to all specs, collected into PATH
     specMods = _: {

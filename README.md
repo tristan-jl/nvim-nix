@@ -28,6 +28,19 @@ nix build .#nvim-minimal
 nix build .#nvim-copilot
 ```
 
+### Customisation
+
+To use a different colorscheme from the default (`tokyonight-night`):
+
+```nix
+environment.systemPackages = [
+  (inputs.nvim-nix.wrappers.nvim.wrap {
+    inherit pkgs;
+    info.colorscheme = "gruber-darker"; # or tokyonight-day, tokyonight-moon, tokyonight-storm, solarized-osaka
+  })
+];
+```
+
 ## Development
 
 ```bash

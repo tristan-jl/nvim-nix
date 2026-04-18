@@ -190,8 +190,6 @@
           neovim = self.packages.${final.stdenv.hostPlatform.system}.default;
         };
 
-        wrapperModules.default = coreModule;
-
         wrappers = {
           nvim =
             { wlib, ... }:
@@ -210,9 +208,11 @@
                 wlib.wrapperModules.neovim
                 coreModule
               ];
-              config.settings.aliases = lib.mkForce [ ];
-              config.hosts.python3.nvim-host.enable = lib.mkForce false;
-              config.hosts.node.nvim-host.enable = lib.mkForce false;
+              config = {
+                settings.aliases = lib.mkForce [ ];
+                hosts.python3.nvim-host.enable = lib.mkForce false;
+                hosts.node.nvim-host.enable = lib.mkForce false;
+              };
             };
 
           nvim-copilot =
@@ -224,9 +224,11 @@
                 fullSpecModule
                 copilotSpecModule
               ];
-              config.binName = "nvim-copilot";
-              config.settings.aliases = lib.mkForce [ ];
-              config.settings.dont_link = true;
+              config = {
+                binName = "nvim-copilot";
+                settings.aliases = lib.mkForce [ ];
+                settings.dont_link = true;
+              };
             };
         };
       };
