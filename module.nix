@@ -35,6 +35,7 @@ inputs:
     info = {
       nixdExtras.nixpkgs = "import ${pkgs.path} {}";
       colorscheme = lib.mkDefault "tokyonight-night";
+      transparency = lib.mkDefault false;
     };
 
     # Add extraPackages field to all specs, collected into PATH
